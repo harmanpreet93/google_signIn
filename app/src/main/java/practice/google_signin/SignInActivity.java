@@ -2,6 +2,7 @@ package practice.google_signin;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,9 @@ public class SignInActivity extends AppCompatActivity implements
     private static final int RC_SIGN_IN = 9001;
 
     private GoogleApiClient mGoogleApiClient;
+
+    private static final String PREFS_NAME = "SIGNIN";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +119,10 @@ public class SignInActivity extends AppCompatActivity implements
 
     private void openNewActivity(Class className,GoogleSignInAccount account) {
         Intent intent = new Intent(this,className);
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor edit = prefs.edit();
+        edit.putBoolean("is_logged_in", true);
+        edit.apply();
         intent.putExtra("name",account.getDisplayName());
         intent.putExtra("email",account.getEmail());
         intent.putExtra("photo_url",account.getPhotoUrl().toString());

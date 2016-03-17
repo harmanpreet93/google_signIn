@@ -34,22 +34,15 @@ import com.google.android.gms.common.api.Status;
 public class MainActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener {
 
-    private TextView name, email;
-    private ImageView image;
-
     /* Client used to interact with Google APIs. */
     private GoogleApiClient mGoogleApiClient;
     private static final String TAG = "SignInActivity";
-    private static final int RC_SIGN_IN = 9001;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.main_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -60,16 +53,15 @@ public class MainActivity extends AppCompatActivity implements
         String photoUrl = (String) intent.getSerializableExtra("photo_url");
 //        Log.v(TAG,"uri: " + photoUrl);
 
-        name = (TextView) findViewById(R.id.display_name);
-        email = (TextView) findViewById(R.id.display_email);
-        image = (ImageView) findViewById(R.id.display_image);
+        TextView name = (TextView) findViewById(R.id.display_name);
+        TextView email = (TextView) findViewById(R.id.display_email);
+        ImageView image = (ImageView) findViewById(R.id.display_image);
 
         name.setText(acct_name);
         email.setText(acct_email);
         Glide.with(this)
                 .load(photoUrl)
                 .into(image);
-
 
         initializeSDK();
 
