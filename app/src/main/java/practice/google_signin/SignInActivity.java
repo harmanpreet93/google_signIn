@@ -122,10 +122,12 @@ public class SignInActivity extends AppCompatActivity implements
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         SharedPreferences.Editor edit = prefs.edit();
         edit.putBoolean("is_logged_in", true);
+        edit.putString("name", account.getDisplayName());
+        edit.putString("email", account.getEmail());
+        if(account.getPhotoUrl() != null) {
+            edit.putString("photo_url", account.getPhotoUrl().toString());
+        }
         edit.apply();
-        intent.putExtra("name",account.getDisplayName());
-        intent.putExtra("email",account.getEmail());
-        intent.putExtra("photo_url",account.getPhotoUrl().toString());
         startActivity(intent);
         finish();
     }

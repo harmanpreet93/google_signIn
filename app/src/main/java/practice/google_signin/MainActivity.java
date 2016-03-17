@@ -1,6 +1,7 @@
 package practice.google_signin;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -37,20 +38,29 @@ public class MainActivity extends AppCompatActivity implements
     /* Client used to interact with Google APIs. */
     private GoogleApiClient mGoogleApiClient;
     private static final String TAG = "SignInActivity";
+    private static final String PREFS_NAME = "SIGNIN";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        Boolean isLoggedIn = prefs.getBoolean("is_logged_in", false);
+
+        if(!isLoggedIn) {
+            openNewActivity(SignInActivity.class);
+            finish();
+        }
+
         setContentView(R.layout.main_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Intent intent = getIntent();
-        String acct_name = intent.getStringExtra("name");
-        String acct_email = intent.getStringExtra("email");
-        String photoUrl = (String) intent.getSerializableExtra("photo_url");
+        String acct_name = prefs.getString("name", "name");
+        String acct_email = prefs.getString("email", "email");
+        String photoUrl = prefs.getString("photo_url","");
 //        Log.v(TAG,"uri: " + photoUrl);
 
         TextView name = (TextView) findViewById(R.id.display_name);
@@ -125,6 +135,9 @@ public class MainActivity extends AppCompatActivity implements
                     public void onResult(Status status) {
 
                         if (status.isSuccess()) {
+                            SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+                            SharedPreferences.Editor edit = prefs.edit();
+                            edit.clear().apply();
                             Intent intent = new Intent(MainActivity.this, SignInActivity.class);
                             startActivity(intent);
                             finish();
@@ -156,5 +169,14 @@ public class MainActivity extends AppCompatActivity implements
                 .setPositiveButton("Ok", null)
                 .show();
 
+    }
+
+    private void openNewActivity(Class className) {
+        Intent intent = new Intent(this,className);
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor edit = prefs.edit();
+        edit.clear().apply();
+        startActivity(intent);
+        finish();
     }
 }
