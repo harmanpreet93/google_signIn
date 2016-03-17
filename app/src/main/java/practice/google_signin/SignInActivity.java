@@ -79,10 +79,10 @@ public class SignInActivity extends AppCompatActivity implements
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
             if(acct != null) {
-                Log.v(TAG, "User Info: " + acct.getDisplayName() + " email: " + acct.getEmail());
+                Log.v(TAG, "signIn successful");
+//                Log.v(TAG, "User Info: " + acct.getDisplayName() + " email: " + acct.getEmail());
+                openNewActivity(MainActivity.class,acct);
             }
-            Log.v(TAG, "signIn successful");
-            openNewActivity(MainActivity.class);
 
         } else {
             showAlertDialogBox();
@@ -113,12 +113,12 @@ public class SignInActivity extends AppCompatActivity implements
         signInButton.setOnClickListener(this);
     }
 
-    private void customizeSignInButton(GoogleSignInOptions gso) {
-
-    }
-
-    private void openNewActivity(Class className) {
+    private void openNewActivity(Class className,GoogleSignInAccount account) {
         Intent intent = new Intent(this,className);
+        intent.putExtra("name",account.getDisplayName());
+        intent.putExtra("email",account.getEmail());
+        intent.putExtra("photo_url",account.getPhotoUrl());
+//        intent.putExtra("account",account);
         startActivity(intent);
         finish();
     }
