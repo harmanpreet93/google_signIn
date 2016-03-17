@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_id": "iith.ac.in:api-project-285573800595",
+    "project_number": "285573800595",
+    "name": "Testing"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:285573800595:android:b0e9056ea55b48cc",
+        "client_id": "android:practice.google_signin",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "practice.google_signin",
+          "certificate_hash": []
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "285573800595-doot9aqnfts09qpds2hfgaj4l65vpb3f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "practice.google_signin",
+            "certificate_hash": "AF731F517C1CED0BB922E877A1A841C8AE06CB73"
+          }
+        },
+        {
+          "client_id": "285573800595.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 1,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 2
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}
