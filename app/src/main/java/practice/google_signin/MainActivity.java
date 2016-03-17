@@ -57,7 +57,8 @@ public class MainActivity extends AppCompatActivity implements
         Intent intent = getIntent();
         String acct_name = intent.getStringExtra("name");
         String acct_email = intent.getStringExtra("email");
-        String photoUrl = intent.getStringExtra("photo_url");
+        String photoUrl = (String) intent.getSerializableExtra("photo_url");
+//        Log.v(TAG,"uri: " + photoUrl);
 
         name = (TextView) findViewById(R.id.display_name);
         email = (TextView) findViewById(R.id.display_email);
@@ -69,18 +70,14 @@ public class MainActivity extends AppCompatActivity implements
                 .load(photoUrl)
                 .into(image);
 
+
         initializeSDK();
 
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+        super.onBackPressed();
     }
 
     @Override
